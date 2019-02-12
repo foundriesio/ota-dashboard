@@ -65,7 +65,7 @@ COPY --from=1 /home/node/node_modules/ $WORKSPACE/node_modules/
 USER root
 RUN chown -R node:node .
 
-EXPOSE 3030
+EXPOSE 3090
 
 USER node
 CMD ["npm", "start"]

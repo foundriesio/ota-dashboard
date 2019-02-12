@@ -8,6 +8,10 @@ This is not meant to be run in production.
 
 ## Setup
 
+### Requirements
+
+[nodejs](https://nodejs.org/) >= 8.12.0
+
 Install dependencies:
 
     npm i

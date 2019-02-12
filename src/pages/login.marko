@@ -1,0 +1,40 @@
+import BaseTemplate from '../templates/base';
+
+<${BaseTemplate} name=input.name>
+    <@title>
+        <title>$!{input.title}</title>
+    </@title>
+
+    <@css>
+        <link rel="stylesheet" href="/static/dist/login.css">
+    </@css>
+
+    <@content>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <h2 class="title is-2 is-uppercase">Log in</h2>
+                    <p>
+                        In order to continue using this web site, you need to log in.
+                    </p>
+                    <div class="social-button-container">
+                        $ const href = input.next ? `/login/github/?next=${input.next}` : '/login/github/';
+                        <a class="button is-black is-medium is-social-button" role="button" href=`${href}`>
+                            <span class="icon">
+                                <i class="fab fa-github"></i>
+                            </span>
+                            Log in with GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </@content>
+
+    <@javascript>
+        <script async src="/static/dist/common.js"></script>
+        <script async src="/static/dist/login.js"></script>
+    </@javascript>
+</>

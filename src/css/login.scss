@@ -1,0 +1,11 @@
+@import "./base.scss";
+
+.button.is-social-button {
+    .icon:first-child {
+        margin-right: .5rem;
+    }
+}
+
+.social-button-container {
+    margin: 2rem auto;
+}

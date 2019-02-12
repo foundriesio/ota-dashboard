@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+$family-sans-serif: "Fira Sans", sans-serif;
+$widescreen-enabled: true;
+$fullhd-enabled: true;
+
+@import "bulma/sass/utilities/_all.sass";
+@import "bulma/sass/base/_all.sass";
+@import "bulma/sass/components/navbar.sass";
+@import "bulma/sass/elements/box.sass";
+@import "bulma/sass/elements/button.sass";
+@import "bulma/sass/elements/container.sass";
+@import "bulma/sass/elements/content.sass";
+@import "bulma/sass/elements/icon.sass";
+@import "bulma/sass/elements/title.sass";
+@import "bulma/sass/elements/table.sass";
+@import "bulma/sass/grid/columns.sass";
+@import "bulma/sass/layout/section.sass";
+
+@import "bulma-tooltip/src/sass/index.sass";
+
+html {
+    scroll-behavior: smooth;
+}
+
+.navbar-brand-name {
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.has-no-padding-bottom {
+    padding-bottom: 0;
+}
+
+.section {
+    &.ota-device-updates {
+        padding-bottom: 0;
+    }
+}

@@ -1,0 +1,38 @@
+import Navbar from './navbar';
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="preconnect" href="https://use.fontawesome.com">
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
+
+        <if(input.title)>
+            <${input.title} />
+        </if>
+
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400i,500,600,700,800,900" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+            integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+            rel="stylesheet"
+            crossorigin="anonymous">
+
+        <if(input.css)>
+            <${input.css} />
+        </if>
+    </head>
+
+    <body>
+        <${Navbar} name=input.name />
+
+        <${input.content} />
+
+        <if(input.javascript)>
+            <${input.javascript} />
+        </if>
+    </body>
+</html>

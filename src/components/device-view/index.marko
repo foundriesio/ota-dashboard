@@ -1,0 +1,9 @@
+<ota-device-info device=input.deviceData key="info" />
+
+<ota-device-updates
+    key="updates"
+    status=input.deviceData.status
+    updates=input.updatesData
+    stream=input.stream
+    device=input.device
+    on-ota-device-updating("deviceUpdating") />

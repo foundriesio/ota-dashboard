@@ -1,0 +1,6 @@
+.cache
+.env
+*.marko.js
+dist
+node_modules
+npm-debug.log

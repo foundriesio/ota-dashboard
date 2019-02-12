@@ -1,0 +1,38 @@
+import BaseTemplate from '../templates/base';
+
+<${BaseTemplate} name=input.name>
+    <@title>
+        <title>$!{input.title}</title>
+    </@title>
+
+    <@css>
+        <link rel="stylesheet" href="/static/dist/device-list.css">
+    </@css>
+
+    <@content>
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2 is-uppercase">Devices</h2>
+            <div class="columns">
+                <div class="column">
+                    <await(response from input.deviceProvider)>
+                        <await-placeholder>
+                            Searching user devices&hellip;
+                        </await-placeholder>
+                        <await-error>
+                            Error loading user devices.
+                        </await-error>
+
+                        <ota-device-list devices=response.body />
+                    </await>
+                </div>
+            </div>
+        </div>
+    </section>
+    </@content>
+
+    <@javascript>
+        <script async src="/static/dist/common.js"></script>
+        <script async src="/static/dist/device-list.js"></script>
+    </@javascript>
+</>

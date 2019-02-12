@@ -1,0 +1,105 @@
+require('v8-compile-cache');
+
+const isProd = process.env.NODE_ENV === 'production';
+
+if (!isProd) {
+    require('marko/node-require').install();
+}
+
+const cfg = require('config');
+
+const app = require('../src/app');
+const log = require('../src/log');
+const server = require('../src/server')(app);
+
+const srvCfg = cfg.get('server') || {};
+const connections = {};
+
+function normalize(val) {
+    let norm = parseInt(val, 10);
+
+    if (isNaN(norm)) {
+        return false;
+    }
+
+    return norm;
+}
+
+const port = normalize(srvCfg.port) || normalize(process.env.PORT) || 3000;
+
+function onSignal(srv) {
+    setTimeout(() => {
+        try {
+            Object.keys(connections).forEach((key) => {
+                connections[key].destroy();
+            });
+
+            srv.close();
+            process.exit();
+        } catch (err) {
+            log.error(err);
+            process.exit(1);
+        }
+    }, 3000);
+}
+
+function onError(err, port) {
+    if (err.syscall !== 'listen') {
+        throw err;
+    }
+
+    switch (err.code) {
+        case 'EACCES':
+            log.error(`Port ${port} cannot be used: not enough priviledges?`);
+            break;
+        case 'EADDRINUSE':
+            log.error(`Port ${port} is already in use`);
+            break;
+        default:
+            log.error(err);
+            break;
+    }
+
+    process.exit(1);
+}
+
+// Trust proxy for secure connection. Useful with HTTPS and secure cookies.
+if (isProd) {
+    app.set('trust proxy', 1);
+}
+
+app.enable('case sensitive routing');
+app.disable('strict routing');
+app.disable('x-powered-by');
+
+app.set('port', port);
+server.listen(port);
+
+server.on('error', (err) => {
+    onError(err, port);
+});
+
+server.on('listening', () => {
+    log.info(`Listening on ${server.address().port}`);
+});
+
+server.on('connection', (conn) => {
+    const key = `${conn.remoteAddress}:${conn.remotePort}`;
+
+    connections[key] = conn;
+    ((k) => {
+        conn.on('close', () => {
+            delete connections[k];
+        });
+    })(key);
+});
+
+process.on('SIGINT', () => {
+    log.warn('Received SIGINT signal, shutting down');
+    onSignal(server);
+});
+
+process.on('SIGTERM', () => {
+    log.warn('Received SIGTERM signal, shutting down');
+    onSignal(server);
+});

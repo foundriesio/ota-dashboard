@@ -1,0 +1,36 @@
+import BaseTemplate from '../templates/base';
+
+<${BaseTemplate} name=input.name>
+    <@title>
+        <title>$!{input.title}</title>
+    </@title>
+
+    <@css>
+        <link rel="stylesheet" href="/static/dist/device.css">
+    </@css>
+
+    <@content>
+    <section class="section has-no-padding-bottom">
+        <div class="container">
+            <h2 class="title is-2 is-uppercase">Device ${input.device}</h2>
+        </div>
+    </section>
+
+    <await(all from input.dataProvider)>
+        <await-placeholder>
+            Loading device ${input.device} data&hellip;
+        </await-placeholder>
+        <await-error>
+            Error loading device data.
+        </await-error>
+
+        <device-view deviceData=all[0].body updatesData=all[1].body stream=input.stream device=input.device />
+    </await>
+    </@content>
+
+    <@javascript>
+        <script async src="/static/dist/common.js"></script>
+        <script async src="/static/dist/runtime.js"></script>
+        <script async src="/static/dist/device.js"></script>
+    </@javascript>
+</>

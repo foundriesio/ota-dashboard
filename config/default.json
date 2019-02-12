@@ -1,0 +1,26 @@
+{
+    "name": "OTA Dashboard",
+    "server": {
+        "port": 3090,
+        "sessionKey": "otadash",
+        "sessionSecret": "hsadato",
+        "cookieDomain": "localhost",
+        "secureCookie": false
+    },
+    "login": {
+        "github": {
+            "clientId": "",
+            "clientSecret": "",
+            "callbackURL": "http://YOU_URL/login/github/callback",
+            "scope": [
+                "user:email",
+                "read:org"
+            ]
+        }
+    },
+    "devices": {
+        "tokenExpires": 300,
+        "secretKey": "",
+        "url": ""
+    }
+}

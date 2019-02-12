@@ -1,0 +1,40 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "plugins": [
+        "node",
+        "security",
+        "promise"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:node/recommended",
+        "plugin:security/recommended",
+        "plugin:promise/recommended"
+    ],
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "rules": {
+        "block-scoped-var": "error",
+        "no-undef": "error",
+        "no-unused-vars": "error",
+        "node/exports-style": ["error", "module.exports"],
+        "quotes": ["error", "single"],
+        "require-jsdoc": "off",
+        "semi": ["error", "always"]
+    },
+    "overrides": [
+        {
+            "files": ["*-browser.js"],
+            "env": {
+                "browser": true,
+                "es6": false,
+                "mocha": false,
+                "node": false
+            }
+        }
+    ]
+}

@@ -8,6 +8,10 @@ This is not meant to be run in production.
 
 ## Setup
 
+Install dependencies:
+
+    npm i
+
 ### Development
 
 Either a `local-development.json` or a `development.json` file is needed with the
@@ -24,6 +28,9 @@ file in the [config](config/) directory.
 The `secretKey` for the `devices` JWT, can also be stored in a separate file.
 In that case, define the `JWT_SECRET_FILE` env variable pointing to the file.
 
+You need to have an [OTA API](https://github.com/foundriesio/ota-api) service up
+and running, and need the URL for such service.
+
 ## Run
 
 ### Development
@@ -37,3 +44,5 @@ Run, in order:
     npm run build:prod
     npm run build:marko
     npm start
+
+The dashboard will be available at http://localhost:3090/.

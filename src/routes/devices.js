@@ -92,7 +92,7 @@ router.post('/:device/applyupdate', [textMultiPartForm], async (req, res) => {
 
         res.json({
             status: `Updating to ${target}`,
-            message: `Your device is being updated to ${target}`
+            message: `The device ${device} is being updated to ${target}.`
         });
     } catch (err) {
         req.log.error(err);
@@ -103,7 +103,36 @@ router.post('/:device/applyupdate', [textMultiPartForm], async (req, res) => {
         }
 
         res.status(500).json({
-            message: 'There was an error trying to update your device.'
+            message: `There was an error trying to update the device ${device}.`
+        });
+    }
+});
+
+router.post('/:device/autoupdate', [textMultiPartForm], async (req, res) => {
+    let message;
+
+    const autoUpdate = req.body.autoupdate;
+    const stream = req.body.stream;
+    const device = req.body.device;
+
+    const data = {
+        'auto-updates': true
+    };
+
+    message = `Auto updates for device ${device} enabled.`;
+    if (autoUpdate === 'off') {
+        message = `Auto updates for device ${device} disabled.`;
+        data['auto-updates'] = false;
+    }
+
+    try {
+        await DeviceServer.update(res.locals.user, device, stream, data);
+        res.json({message: message});
+    } catch (err) {
+        req.log.error(err);
+
+        res.status(500).json({
+            message: `Error enabling/disabling auto updates for device ${device}`
         });
     }
 });

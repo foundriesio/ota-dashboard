@@ -14,6 +14,7 @@ $fullhd-enabled: true;
 @import "bulma/sass/elements/icon.sass";
 @import "bulma/sass/elements/title.sass";
 @import "bulma/sass/elements/table.sass";
+@import "bulma/sass/elements/form.sass";
 @import "bulma/sass/grid/columns.sass";
 @import "bulma/sass/layout/section.sass";
 
@@ -33,7 +34,8 @@ html {
 }
 
 .section {
-    &.ota-device-updates {
+    &.ota-device-updates,
+    &.ota-device-info {
         padding-bottom: 0;
     }
 }

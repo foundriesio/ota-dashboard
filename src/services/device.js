@@ -51,17 +51,12 @@ DeviceServer.prototype._pre = async function(user) {
 
     if (user) {
         const data = {
-            id: '59db40481c85010019e023cb',
-            orgs: ['foundries', 'development', 'admin'],
-            subscriber: true
-            // TODO
-            // id: user.id,
-            // email: user.email,
-            // name: user.name,
-            // login: user.login
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            login: user.login
         };
 
-        // TODO: pass file with secret in it.
         const token = await jwtSign(data, await jwtKey(), {
             algorithm: 'HS256',
             expiresIn: Date.now() + (DEVICES_CFG.tokenExpires * 1000)
